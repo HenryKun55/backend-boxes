@@ -1,0 +1,7 @@
+POST {{URL}}/users
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "@Secret123"
+}
