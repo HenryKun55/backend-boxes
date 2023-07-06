@@ -8,11 +8,15 @@ import { PrismaService } from './prisma.service';
 export class BoxRepository implements IBoxRepository {
   constructor(private prisma: PrismaService) {}
 
-  findById(id: string) {
+  async findByName(name: string) {
+    return this.prisma.boxes.findUnique({ where: { name } });
+  }
+
+  async findById(id: string) {
     return this.prisma.boxes.findUnique({ where: { id } });
   }
 
-  list(userId: string): Promise<Box[]> {
+  async findAll(userId: string): Promise<Box[]> {
     return this.prisma.boxes.findMany({ where: { userId } });
   }
 
