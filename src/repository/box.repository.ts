@@ -27,7 +27,7 @@ export class BoxRepository implements IBoxRepository {
   }
 
   async delete(boxId: string): Promise<void> {
-    this.prisma.boxes.delete({ where: { id: boxId } });
+    await this.prisma.boxes.delete({ where: { id: boxId } });
     return;
   }
 }
