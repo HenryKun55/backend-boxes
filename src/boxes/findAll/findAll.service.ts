@@ -6,8 +6,12 @@ import { OutputFindAllBoxDto } from './findAll.dto';
 export class FindAllService {
   constructor(private boxRepository: BoxRepository) {}
 
-  async execute(id: string): Promise<OutputFindAllBoxDto> {
-    const boxes = await this.boxRepository.findAll(id);
+  async execute(
+    id: string,
+    take: string = '10',
+    skip: string = '0',
+  ): Promise<OutputFindAllBoxDto> {
+    const boxes = await this.boxRepository.findAll(id, take, skip);
     return { boxes };
   }
 }

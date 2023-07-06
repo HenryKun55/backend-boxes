@@ -16,8 +16,12 @@ export class BoxRepository implements IBoxRepository {
     return this.prisma.boxes.findUnique({ where: { id } });
   }
 
-  async findAll(userId: string): Promise<Box[]> {
-    return this.prisma.boxes.findMany({ where: { userId } });
+  async findAll(userId: string, take: string, skip: string): Promise<Box[]> {
+    return this.prisma.boxes.findMany({
+      where: { userId },
+      take: Number(take),
+      skip: Number(skip),
+    });
   }
 
   async save(input: Box): Promise<Box> {

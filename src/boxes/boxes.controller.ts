@@ -8,6 +8,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { UserId } from 'src/common/decorators/user-id.decorator';
@@ -59,8 +60,11 @@ export class BoxController {
   @UseGuards(JwtGuard)
   @Get()
   @HttpCode(HttpStatus.OK)
-  listAll(@UserId() id: string): Promise<OutputFindAllBoxDto> {
-    return this.findAllService.execute(id);
+  listAll(
+    @UserId() id: string,
+    @Query() { take, skip },
+  ): Promise<OutputFindAllBoxDto> {
+    return this.findAllService.execute(id, take, skip);
   }
 
   @UseGuards(JwtGuard)
