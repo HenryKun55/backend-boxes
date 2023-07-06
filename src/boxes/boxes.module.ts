@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { BoxController } from './boxes.controller';
 import { CreateService } from './create/create.service';
+import { DeleteService } from './delete/delete.service';
 
 @Module({
   controllers: [BoxController],
-  providers: [CreateService],
+  providers: [CreateService, DeleteService],
 })
-export class BoxModule { }
+export class BoxModule {}
