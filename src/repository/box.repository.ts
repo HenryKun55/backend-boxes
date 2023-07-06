@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { InputUpdateBoxDto } from 'src/boxes/update/update.dto';
 import { Box } from 'src/common/entities/box';
 import { IBoxRepository } from './interfaces/box.repository';
 import { PrismaService } from './prisma.service';
@@ -28,6 +29,14 @@ export class BoxRepository implements IBoxRepository {
 
   async delete(boxId: string): Promise<void> {
     await this.prisma.boxes.delete({ where: { id: boxId } });
+    return;
+  }
+
+  async update(id: string, input: InputUpdateBoxDto): Promise<void> {
+    await this.prisma.boxes.update({
+      where: { id },
+      data: { ...input },
+    });
     return;
   }
 }
