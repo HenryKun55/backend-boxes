@@ -5,13 +5,13 @@ import { PrismaService } from './prisma.service';
 
 @Injectable()
 export class FileRepository implements IFileRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-  findById(id: string) {
+  async findById(id: string) {
     return this.prisma.files.findUnique({ where: { id } });
   }
 
-  list(boxId: string): Promise<File[]> {
+  async list(boxId: string): Promise<File[]> {
     return this.prisma.files.findMany({ where: { boxId } });
   }
 

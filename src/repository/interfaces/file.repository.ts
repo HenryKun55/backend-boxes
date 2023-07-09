@@ -4,4 +4,5 @@ export interface IFileRepository {
   list(boxId: string): Promise<File[]>;
   save(file: File): Promise<File>;
   delete(fileId: string): Promise<void>;
+  findById(id: string): Promise<File>;
 }

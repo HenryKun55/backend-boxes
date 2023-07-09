@@ -33,7 +33,6 @@ export class BoxController {
     private updateService: UpdateService,
   ) {}
 
-  @UseGuards(JwtGuard)
   @Post('')
   @HttpCode(HttpStatus.CREATED)
   save(
@@ -43,21 +42,18 @@ export class BoxController {
     return this.createSerice.execute(userId, input);
   }
 
-  @UseGuards(JwtGuard)
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id') id: string): Promise<void> {
     return this.deleteService.execute(id);
   }
 
-  @UseGuards(JwtGuard)
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   list(@Param('id') id: string): Promise<OutputFindByIdBoxDto> {
     return this.findByIdService.execute(id);
   }
 
-  @UseGuards(JwtGuard)
   @Get()
   @HttpCode(HttpStatus.OK)
   listAll(
@@ -67,7 +63,6 @@ export class BoxController {
     return this.findAllService.execute(id, take, skip);
   }
 
-  @UseGuards(JwtGuard)
   @Put(':id')
   @HttpCode(HttpStatus.OK)
   update(

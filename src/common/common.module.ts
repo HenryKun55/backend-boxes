@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { EncryptionService } from './encryption/encryption.service';
+import { MulterConfigService } from './multer/multer.service';
 import { JwtStrategy } from './token/jwt.strategy';
 import { TokenService } from './token/token.service';
 
@@ -10,4 +11,4 @@ import { TokenService } from './token/token.service';
   providers: [EncryptionService, TokenService, JwtStrategy],
   exports: [EncryptionService, TokenService],
 })
-export class CommonModule { }
+export class CommonModule {}

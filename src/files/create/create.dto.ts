@@ -1,19 +1,16 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+import { File } from 'src/common/entities/file';
 
-export class InputCreateUserDto {
+export class InputCreateFileDto {
   @IsString()
   @IsNotEmpty()
-  username: string;
-
-  @IsString()
-  @IsNotEmpty()
-  password: string;
+  boxId: string;
 }
 
-export interface OutputCreateUserDto {
-  userId: string;
+export interface OutputCreateFileDto {
+  file: File;
 }
 
-export interface CreateUser {
-  execute(input: InputCreateUserDto): Promise<OutputCreateUserDto>;
+export interface CreateFile {
+  execute(input: InputCreateFileDto): Promise<OutputCreateFileDto>;
 }
