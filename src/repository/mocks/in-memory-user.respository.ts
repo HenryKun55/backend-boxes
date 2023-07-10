@@ -2,6 +2,10 @@ import { User } from 'src/common/entities/user';
 import { IUserRepository } from '../interfaces/user.repository';
 
 export class InMemoryUserRepository implements IUserRepository {
+  async findByUsername(username: string): Promise<User | undefined> {
+    return this.users.find((user) => user.username === username);
+  }
+
   users: User[] = [];
 
   async findById(id: string): Promise<User | undefined> {

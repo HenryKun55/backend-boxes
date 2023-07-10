@@ -9,16 +9,22 @@ export class BoxRepository implements IBoxRepository {
   constructor(private prisma: PrismaService) {}
 
   async findByName(name: string) {
-    return this.prisma.boxes.findUnique({ where: { name } });
+    return this.prisma.boxes.findUnique({
+      where: { name },
+    });
   }
 
   async findById(id: string) {
-    return this.prisma.boxes.findUnique({ where: { id } });
+    return this.prisma.boxes.findUnique({
+      where: { id },
+      include: { files: true },
+    });
   }
 
   async findAll(userId: string, take: string, skip: string): Promise<Box[]> {
     return this.prisma.boxes.findMany({
       where: { userId },
+      include: { _count: { select: { files: true } } },
       take: Number(take),
       skip: Number(skip),
     });

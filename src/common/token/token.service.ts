@@ -10,7 +10,6 @@ export class TokenService {
     return this.jwtService.signAsync(
       { sub: userId },
       {
-        expiresIn: '7d',
         secret: this.config.get('JWT_SECRET'),
       },
     );

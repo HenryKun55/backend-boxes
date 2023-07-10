@@ -9,10 +9,8 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
 } from '@nestjs/common';
 import { UserId } from 'src/common/decorators/user-id.decorator';
-import { JwtGuard } from 'src/common/guards/jwt.guard';
 import { InputCreateBoxDto, OutputCreateBoxDto } from './create/create.dto';
 import { CreateService } from './create/create.service';
 import { DeleteService } from './delete/delete.service';
