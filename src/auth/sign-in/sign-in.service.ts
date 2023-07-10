@@ -11,7 +11,7 @@ export class SignInService {
     private userRepository: UserRepository,
     private encryptionService: EncryptionService,
     private tokenService: TokenService,
-  ) { }
+  ) {}
 
   async execute(input: SignInInputDto): Promise<SignInOutputDto> {
     const user = await this.userRepository.findByUsername(input.username);
@@ -26,9 +26,10 @@ export class SignInService {
       throw new InvalidCredentialsError();
     }
     const token = await this.tokenService.createToken(user.id);
+    delete user.password;
     return {
       token,
-      userId: user.id,
+      user,
     };
   }
 }

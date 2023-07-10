@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+import { User } from 'src/common/entities/user';
 
 export class SignInInputDto {
   @IsString({ message: 'Nome do usuário é obrigatório' })
@@ -12,5 +13,5 @@ export class SignInInputDto {
 
 export class SignInOutputDto {
   token: string;
-  userId: string;
+  user: User;
 }
