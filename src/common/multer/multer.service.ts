@@ -33,8 +33,8 @@ export const multerStorage = {
     bucket: process.env.AWS_BUCKET_NAME,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: 'public-read',
-    key: (_request, file, cb) => {
-      cb(null, `${randomUUID()}-${file.originalname}`);
+    key: (_request, file, callback) => {
+      callback(null, `${randomUUID()}-${file.originalname}`);
     },
   }),
 };

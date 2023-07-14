@@ -11,7 +11,9 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     RepositoryModule,
     CommonModule,
     MulterModule.registerAsync({ useClass: MulterConfigService }),
@@ -21,4 +23,4 @@ import { UsersModule } from './users/users.module';
     FilesModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
