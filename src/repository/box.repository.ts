@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InputUpdateBoxDto } from 'src/boxes/update/update.dto';
+import { Paginated } from 'src/common/@types/pagination';
 import { Box } from 'src/common/entities/box';
 import { IBoxRepository } from './interfaces/box.repository';
 import { PrismaService } from './prisma.service';
@@ -21,13 +22,22 @@ export class BoxRepository implements IBoxRepository {
     });
   }
 
-  async findAll(userId: string, take: string, skip: string): Promise<Box[]> {
-    return this.prisma.boxes.findMany({
+  async findAll(
+    userId: string,
+    take: string,
+    skip: string,
+  ): Promise<Paginated<Box>> {
+    const count = await this.prisma.boxes.count({ where: { userId } });
+    const boxes = await this.prisma.boxes.findMany({
       where: { userId },
       include: { _count: { select: { files: true } } },
       take: Number(take),
       skip: Number(skip),
     });
+    return {
+      data: boxes,
+      count,
+    };
   }
 
   async save(input: Box): Promise<Box> {

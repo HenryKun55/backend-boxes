@@ -11,7 +11,6 @@ export class FindAllService {
     take: string = '10',
     skip: string = '0',
   ): Promise<OutputFindAllBoxDto> {
-    const boxes = await this.boxRepository.findAll(id, take, skip);
-    return { boxes };
+    return await this.boxRepository.findAll(id, take, skip);
   }
 }
