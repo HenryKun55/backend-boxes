@@ -1,15 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import {
-  MulterModuleOptions,
-  MulterOptionsFactory,
-} from '@nestjs/platform-express';
 import { randomUUID } from 'crypto';
 import * as multer from 'multer';
 import { S3Client } from '@aws-sdk/client-s3';
 import * as multerS3 from 'multer-s3';
 
 const s3 = new S3Client({
-  region: process.env.AWS_REGION,
+  region: process.env.AWS_DEFAULT_REGION,
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_ACCESS_SECRET_KEY,
@@ -38,13 +33,3 @@ export const multerStorage = {
     },
   }),
 };
-
-@Injectable()
-export class MulterConfigService implements MulterOptionsFactory {
-  createMulterOptions(): MulterModuleOptions {
-    return {
-      dest: multerDest,
-      storage: multerStorage[process.env.MULTER_STORAGE],
-    };
-  }
-}

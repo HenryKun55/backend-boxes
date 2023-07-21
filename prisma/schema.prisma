@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -32,6 +31,8 @@ model Boxes {
 model Files {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
+  ext   String
+  size  Int
   path  String
   box   Boxes  @relation(fields: [boxId], references: [id])
   boxId String @db.ObjectId

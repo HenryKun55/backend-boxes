@@ -20,6 +20,8 @@ export class FileRepository implements IFileRepository {
       data: {
         name: input.name,
         path: input.path,
+        ext: input.ext,
+        size: input.size,
         boxId: input.boxId,
       },
     });

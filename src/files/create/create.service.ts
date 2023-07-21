@@ -19,10 +19,13 @@ export class CreateService {
   ): Promise<OutputCreateFileDto> {
     const box = await this.boxRepository.findById(input.boxId);
     if (!box) throw new NotFoundError('Box');
+    console.log({ file });
     const newFile: File = {
       id: randomUUID(),
       name: file.originalname,
-      path: file.location,
+      ext: file.mimetype,
+      size: file.size,
+      path: file.path,
       boxId: box.id,
     };
     const theFile = await this.fileRepository.save(newFile);
