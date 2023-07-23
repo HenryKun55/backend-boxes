@@ -11,7 +11,7 @@ export class CreateService {
   constructor(
     private fileRepository: FileRepository,
     private boxRepository: BoxRepository,
-  ) {}
+  ) { }
 
   async execute(
     file: Express.MulterS3.File,
@@ -19,13 +19,12 @@ export class CreateService {
   ): Promise<OutputCreateFileDto> {
     const box = await this.boxRepository.findById(input.boxId);
     if (!box) throw new NotFoundError('Box');
-    console.log({ file });
     const newFile: File = {
       id: randomUUID(),
       name: file.originalname,
       ext: file.mimetype,
       size: file.size,
-      path: file.path,
+      path: file.location,
       boxId: box.id,
     };
     const theFile = await this.fileRepository.save(newFile);

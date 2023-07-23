@@ -14,9 +14,11 @@ import { multerStorage } from 'src/common/multer/multer.service';
 import { InputCreateFileDto, OutputCreateFileDto } from './create/create.dto';
 import { CreateService } from './create/create.service';
 
+const THREE_MB = 3145728;
+
 @Controller('files')
 export class FilesController {
-  constructor(private createSerice: CreateService) {}
+  constructor(private createSerice: CreateService) { }
 
   @Post('upload')
   @UseInterceptors(
@@ -28,7 +30,7 @@ export class FilesController {
   save(
     @UploadedFile(
       new ParseFilePipeBuilder()
-        .addMaxSizeValidator({ maxSize: 300000 })
+        .addMaxSizeValidator({ maxSize: THREE_MB })
         .build({
           exceptionFactory(error) {
             throw new HttpException(error, HttpStatus.UNPROCESSABLE_ENTITY);
