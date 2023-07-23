@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   HttpCode,
   HttpException,
   HttpStatus,
+  Param,
   ParseFilePipeBuilder,
   Post,
   UploadedFile,
@@ -13,12 +15,16 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { multerStorage } from 'src/common/multer/multer.service';
 import { InputCreateFileDto, OutputCreateFileDto } from './create/create.dto';
 import { CreateService } from './create/create.service';
+import { DeleteService } from './delete/delete.service';
 
 const THREE_MB = 3145728;
 
 @Controller('files')
 export class FilesController {
-  constructor(private createSerice: CreateService) { }
+  constructor(
+    private createSerice: CreateService,
+    private deleteService: DeleteService,
+  ) { }
 
   @Post('upload')
   @UseInterceptors(
@@ -41,5 +47,11 @@ export class FilesController {
     @Body() input: InputCreateFileDto,
   ): Promise<OutputCreateFileDto> {
     return this.createSerice.execute(file, input);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@Param('id') id: string): Promise<void> {
+    return this.deleteService.execute({ fileId: id });
   }
 }
